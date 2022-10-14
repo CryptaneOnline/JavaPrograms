@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=GitOperations
+comment1.params=
+comment1.target=void\ initDirectory()
+comment2.params=
+comment2.target=void\ backup()
+comment3.params=
+comment3.target=void\ restore()
+comment4.params=
+comment4.target=void\ download()
+comment5.params=
+comment5.target=void\ getGit()
+comment6.params=
+comment6.target=void\ getLog()
+comment7.params=
+comment7.target=void\ hardbackup()
+comment8.params=
+comment8.target=void\ remoteLog()
+comment9.params=path
+comment9.target=void\ walk(java.lang.String)
+numComments=10
