@@ -7,10 +7,10 @@
 
 __global__ void add(jint *x, jint*y, jint *r, jint sz) 
 {
-	int i=threadIdx.x+blockIdx.x*blockDim.x;
+	int i=threadIdx.x+blockIdx.x*blockDim.x; //Getting thread number
 	if(i<sz)
 	{
-   	jint z=((int)(*x/pow(10,i))%10)+((int)(*y/pow(10,i))%10);
+   	jint z=((int)(*x/pow(10,i))%10)+((int)(*y/pow(10,i))%10); //Adding digits
 	r[i]=z;	
 	}  
 }
@@ -19,7 +19,7 @@ void show(jint* r, jint sz)
 {
 	for(int i=sz-1;i>=0;i--)
 	{
-		printf("%d ",r[i]);
+		printf("%d ",r[i]); //Showing number
 	}
 }
 
@@ -33,7 +33,7 @@ JNIEXPORT void JNICALL Java_HelloJNI_sayHello(JNIEnv *env, jobject thisObj, jint
 	cudaMallocManaged(&b1,sizeof(jint));
 	cudaMemcpy(a1,&a,sizeof(jint),cudaMemcpyHostToDevice);
 	cudaMemcpy(b1,&b,sizeof(jint),cudaMemcpyHostToDevice);
-	add<<<1,sz>>> (a1,b1,r,sz);
+	add<<<1,sz>>> (a1,b1,r,sz); //Parallel addition of digits
 	cudaDeviceSynchronize();
 	show(r,sz);
 }
