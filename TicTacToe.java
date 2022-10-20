@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 
-class Data
+class Data // Current game state
 {
     
     public JButton[] keys;
@@ -31,7 +31,7 @@ class GameToFile
         {
             ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(nm1));
            
-            oos.writeObject(butt);
+            oos.writeObject(butt); //Button states
             oos.writeInt(k);
             oos.close();
           
@@ -45,17 +45,17 @@ class GameToFile
 
 class gui extends JFrame implements ActionListener
 {
-    JFrame fr=new JFrame("Tic Tac Toe");
-    public JButton butt[]=new JButton[9];
+    JFrame fr=new JFrame("Tic Tac Toe"); //Frame title
+    public JButton butt[]=new JButton[9]; //Buttons to hold user moves
     JPanel p=new JPanel();
-    JTextField ar=new JTextField(15);
+    JTextField ar=new JTextField(15); //Game status
     int move;
     Font font = new Font("Calibri", Font.BOLD, 20);
     JButton save=new JButton("Save and Exit");
     JButton ext=new JButton("EXIT");
     gui()
     {
-        setDesign();
+        setDesign(); //Setting design
         fr.setResizable(false);
         for(int i=0;i<9;i++)
         {
@@ -83,7 +83,7 @@ class gui extends JFrame implements ActionListener
 
         fr.setVisible(true);
         move=1;
-        ar.setText("Player "+move+"\'s Move");
+        ar.setText("Player "+move+"\'s Move"); //Check which player move
     }
     
     
@@ -100,10 +100,10 @@ class gui extends JFrame implements ActionListener
                 if(e.getSource()==butt[i])
                 {
 
-                    butt[i].setEnabled(false);
+                    butt[i].setEnabled(false); //Disabling a button after move
                     if(move==1)
                     {
-                        butt[i].setText("X");
+                        butt[i].setText("X"); 
                     }
                     else
                     {
@@ -122,12 +122,12 @@ class gui extends JFrame implements ActionListener
 
                 for(int i=0;i<9;i++)
                 {
-                    butt[i].setEnabled(false);
+                    butt[i].setEnabled(false); //Disable all buttons when game is over
 
                 }
                 ext.setEnabled(true);
                 save.setEnabled(false);
-                int w=playGame.Winner(butt);
+                int w=playGame.Winner(butt); //Check who is winner
                 if(w!=0)
                 {
                     ar.setText("Player "+w+" wins");
@@ -138,11 +138,11 @@ class gui extends JFrame implements ActionListener
                 }
             }
         }
-        if(e.getSource()==ext)
+        if(e.getSource()==ext) //Exit game
         {
             fr.setVisible(false);
         }
-        if(e.getSource()==save)
+        if(e.getSource()==save) //Save and exit game
         {
             fr.setVisible(false);
             new SaveGame(new Data(butt,move));
@@ -152,7 +152,7 @@ class gui extends JFrame implements ActionListener
     public final static void setDesign() {
         try {
             UIManager.setLookAndFeel(
-                "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+                "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel"); //Nimbus skin
         } catch(Exception e) {  
         }
     }
@@ -201,7 +201,7 @@ class LoadGame implements ActionListener
     public static int load(String fln)
     {
 
-        String nm1=fln.trim()+".AdiTicTacToe";
+        String nm1=fln.trim()+".AdiTicTacToe"; //Read saved file
      
         int m=0;
 
@@ -211,7 +211,6 @@ class LoadGame implements ActionListener
        
             ks=(JButton[]) ois.readObject();
             m=ois.readInt();
-            //System.out.println("Reading move "+m);
            
             ois.close();
         }
@@ -275,7 +274,7 @@ class playGame
         return true;
     }
 
-    static int Winner(JButton butt[])
+    static int Winner(JButton butt[]) //Check if gameover and find winner
     {
         char c=' ';
         char moves[]=new char[9];
@@ -360,6 +359,6 @@ public class TicTacToe
     public static void main(String args[])
     {
         gui.setDesign();
-        new newGame();
+        new newGame(); //Init game
     }
 }
